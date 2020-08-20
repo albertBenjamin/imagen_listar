@@ -1,32 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: listar-image-deployment
+  name: listar-git-deployment
   labels:
-    app: listar-image-app
+    app: listar-git-app
 spec:
   selector:
     matchLabels:
-      app: listar-image-app
+      app: listar-git-app
       tier: service
   template:
     metadata:
       labels:
-        app: listar-image-app
+        app: listar-git-app
         tier: service
     spec:
       containers:
-      - name: listar-image-app
-        image: registry.hub.docker.com/donalbert/listar-image:latest
+      - name: listar-git-app
+        git: registry.hub.docker.com/donalbert/listar-git:latest
         ports:
         - containerPort: 8080
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: listar-image-service
+  name: listar-git-service
   labels:
-    app: listar-image-service
+    app: listar-git-service
 spec:
   ports:
   - port: 80
@@ -34,4 +34,4 @@ spec:
     targetPort: 8080
   type: LoadBalancer
   selector:
-    app: listar-image-app
+    app: listar-git-app
